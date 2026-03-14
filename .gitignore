@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# AugmentedUI — 논문 PDF 비공개 (저작권)
+AugmentedUI/*.pdf
+
+# Office 문서 — 병원 내부 자료
+JBUH-CDM-public/docs/전북대학교병원_OMOP-CDM_v1.1_포트폴리오용.docx

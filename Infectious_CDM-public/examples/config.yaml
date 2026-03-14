@@ -1,0 +1,79 @@
+source_path: "./source"
+CDM_path: "./cdm"
+source_encoding: "utf-8"
+cdm_encoding: "utf-8-sig"
+source_dtype: "str"
+target_zip: "549"
+data_range: "2023-12-31"
+care_site_data: "care_site"
+person_data: "person"
+provider_data: "provider"
+visit_data: "visit_occurrence"
+visit_detail_data: "visit_detail"
+local_kcd_data: "local_kcd"
+local_edi_data: "local_edi"
+person_source_value: "patient_id"
+location_data: "location"
+concept_unit: "concept_unit"
+concept_etc: "concept_etc"
+concept_kcd: "concept_kcd7"
+unit_concept_synonym: "unit_concept_synonym"
+diag_condition: "A15A31"
+# ['A9380', 'A753', 'A31']
+no_matching_concept: [0, "No matching concept"]
+chunksize: 100000
+
+# DQ
+excel_path: "QC/품질진단지표.xlsx"
+sheet_table_count: "원본비교결과"
+sheet_field_summary: "컬럼별데이터분포진단"
+sheet_dq: "점검사항"
+sheet_meta: "메타데이터진단"
+
+person:
+  data:
+    source_data: ""
+    source_condition: ""
+    output_filename: ""
+  columns:
+    gender_source_value: "SEX"
+    death_datetime: "DIEDATE"
+    person_name: "patient_name"
+    # 상병코드가 있을 경우 상병코드 컬럼 내용
+    diagcode: "DIAGCODE"
+    ruleoutyn: "RULEOUTYN"
+
+measurement_stexmrst:
+  data:
+    source_data: ""
+    output_filename: ""
+  columns:
+    meddept: "MEDDEPT"
+    provider: "DR"
+    orddate: "ORDERDATE"
+    exectime: "EXECUTION_DATE"
+    measurement_source_value: "EXAMCODE"
+    value_source_value: "RSLT"
+    unit_source_value: "RSLTUNIT"
+    age: "AGE"
+    # local_edi파일의 컬럼 정의
+    fromdate: FROMDATE
+    todate: TODATE
+    ordcode: ORDCODE
+    insedicode: EDICODE
+    ordname: ORDERNAME
+
+metadata:
+  wbc_count: ["원내코드"]
+  hb: ["원내코드"]
+  hematocrit: ["원내코드"]
+  # ... 이하 생략
+  # vs는 concept_id로 조회
+  temperature: [4302666]
+  sbp: [4152194]
+  dbp: [4154790]
+  heartrate: [4224504]
+  respiratory_rate: [4313591]
+  bmi: [40490382]
+  height: [4177340]
+  weight: [4099154]

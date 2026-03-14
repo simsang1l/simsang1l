@@ -1,0 +1,125 @@
+# 변수 정의 및 분석 목적별 변수 셋
+# 실제 데이터는 비공개 — 설계 구조 예시 (100+ 임상 변수 중 일부)
+
+# 전체 입력 변수 목록 (전처리 전)
+features:
+  ## [1] 인구통계학 정보
+  - mage   # 산모나이 (Maternal age)
+  - mulg   # 단태/다태 정보 (Singleton/Twin/...)
+  # ... 생략
+
+  ## [2] 임신 정보
+  - dm     # 당뇨 (GDM / Overt DM)
+  - htn    # 고혈압 (PIH / Chronic HTN)
+  - chor   # 조직학적 융모양막염
+  - prom   # 조기양막파수 유무
+  - ster   # 산전스테로이드 유무
+  # ... 생략
+
+  ## [3] 분만 정보
+  - delm   # 분만방식 (질식분만 / 제왕절개)
+  # ... 생략
+
+  ## [4] 신생아 정보
+  - gagew  # 임신 나이 (Gestational age, weeks)
+  - apgs1  # 1분 아프가 점수
+  - bwei   # 출생체중
+  - bhei   # 출생신장
+  - resui  # 초기 소생술 기도삽관 유무
+  # ... 생략
+
+  ## [5] 질환 정보
+  - rds    # 신생아 호흡곤란증후군 (RDS)
+  - sft    # 폐표면활성제 사용 유무
+  - bdp    # 기관지폐이형성증 (BPD, 교정 36주 기준)
+  - inhg   # 뇌실 내 출혈 Grade
+  - lbp    # 저혈압 유무
+  - seps   # 패혈증
+  # ... 생략
+
+  ## [6] 처치 기간 지표
+  - iarvppd  # 침습적 인공호흡기 사용 기간
+  - invfpod  # 정맥영양 기간
+  # ... 생략
+
+  ## [7] 퇴원 정보 (target)
+  - stday  # 재원 일수
+  - dcdwt  # 퇴원시 체중
+  - dcdht  # 퇴원시 신장
+
+
+# 전처리 후 변수 타입 분류 (base / category / numeric)
+# base: ID·날짜 등 모델에 사용하지 않을 변수
+features_preprocessing:
+  ## [1] 인구통계학 정보
+  mage:  numeric    # 산모나이
+  mulg:  category   # 단태/다태
+  ## [2] 임신/분만 정보
+  dm:    category   # 당뇨
+  htn:   category   # 고혈압
+  chor:  category   # 융모양막염
+  delm:  category   # 분만방식
+  ## [3] 신생아 정보
+  gagew: numeric    # 임신 나이 (weeks)
+  bwei:  numeric    # 출생체중
+  apgs1: numeric    # 1분 아프가
+  resui: category   # 기도삽관 유무
+  ## [4] 질환 정보
+  rds:   category   # RDS
+  bdp:   category   # BPD
+  inhg:  category   # IVH grade
+  iarvppd: numeric  # 침습적 인공호흡기 기간
+  invfpod: numeric  # 정맥영양 기간
+  # ... (100+ 변수 전체 목록 비공개)
+
+
+# 변수 약어 → 논문 표기 매핑 (일부)
+column_map:
+  gagew:  Gestational Age (weeks)
+  bwei:   Birth Weight
+  apgs1:  Apgar Score 1min
+  rds:    RDS
+  bdp_yn: BPD
+  inhg:   IVH Grade
+  lbp:    Hypotension
+  seps:   Sepsis
+  stday:  Length of Stay
+  # ...
+
+
+# 분석 목적별 변수 셋
+# 다단계 변수 선택 (상관계수 → p-value → OR → VIF → Backward → Elastic Net) 결과
+
+# 상관계수 |r| ≥ 0.1, p < 0.05, OR 95% CI에 1 미포함 통과 변수
+corr_columns_bmi:
+  categorical:
+    - rds
+    - sft
+    - lbp
+    - inhg
+    - seps
+    - nrp_grade  # VIF 검사 전 포함
+    # ... 생략
+  numerical:
+    - gagew
+    - bwei
+    - stday
+    - birth_bmi
+    # ... 생략
+
+# VIF < 5 및 Backward Elimination 통과 후 최종 변수 셋
+corr_stat_columns_bmi:
+  categorical:
+    - rds
+    - sft
+    - lbp
+    - inhg
+    - seps
+    # nrp_grade  # VIF >= 5로 제외
+    # ... 생략
+  numerical:
+    - gagew
+    - apgs1
+    - stday
+    # bwei  # VIF >= 5로 제외
+    # ... 생략

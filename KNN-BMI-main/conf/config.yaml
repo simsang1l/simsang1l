@@ -1,0 +1,112 @@
+experiment:
+  name: "knn-bmi"
+  version: "v1"
+  age_cutoff: 43
+  zscore_cutoff: 1.5
+  ga_cutoff: 32
+  split_year: 2020
+  label_order: ["Normal", "Low", "High"]
+paths:
+  data: "data/"
+  raw: "data/raw/"
+  preprocess: "data/processed/"
+  filter: "data/filtered/"
+  split: "data/split/"
+  external: "data/external/"
+  models: "models/"
+  logs: "logs/"
+  data_stats: "data/stats/"
+
+  # 결과 저장 경로
+  results: "results/"
+  screening: "results/screening"
+  tableone: "results/tableone/"
+  corr: "results/corr/"
+  vif: "results/vif/"
+  logistic_regression: "results/logistic_regression"
+  followup_outcomes: "results/followup_outcomes"
+
+training:
+  split_ratio: 0.2
+  seed: 42
+
+file_name:
+  raw: "knn_dataset_fu.csv"
+  preprocess: "preprocessed_dataset.csv"
+  external: "external_validation_dataset.csv"
+  filter: "filtered_dataset.csv"
+  external_filtered: "external_filtered_dataset.csv"
+  derivation: "derivation_dataset.csv"
+  derivation_ml: "derivation_ml_dataset.csv"
+  train: "train_dataset.csv"
+  test: "test_dataset.csv"
+  train_ml: "train_ml_dataset.csv"
+  test_ml: "test_ml_dataset.csv"
+  scaled_encoded_train: "scaled_encoded_train_dataset.csv"
+  scaled_encoded_test: "scaled_encoded_test_dataset.csv"
+  scaled_encoded_external_validation: "scaled_encoded_external_validation.csv"
+
+results:
+  screening: "screening"
+  screening_fu: screening_fu
+  # tableone
+  tableone_full: "tableone_full"
+  tableone_followup: "tableone_followup"
+  demographics: "demographics"
+  derivation_demographics: "derivation_demographics"
+  tableone_significant: "tableone_significant"
+  tableone_full_derivation: "tableone_full_derivation"
+  tableone_stats1: "tableone_stats1"
+  tableone_stats2: "tableone_stats2"
+  significant_column: "significant_column"
+  compare_train_test: compare_train_test
+  chi_square: chi_square
+  tableone_neurologic: tableone_neurologic
+  chi_square_neurologic: chi_square_neurologic
+  bsid2: bsid2
+  bsid3: bsid3
+  kdst: kdst
+  fu_data: fu_data
+  fu_stats: fu_stats
+  chisq_posthcoc: chisq_posthcoc
+  # corr
+  corr: "correlation"
+  corr_significant: "correlation_significant"
+  # vif
+  vif: "vif"
+  # logistic_regression
+  elasticnet: elasticnet
+  multivariate_logistic_regression: multivariate_logistic_regression
+  univariate_logistic_regression: univariate_logistic_regression
+  multivariate_odds_ratio: multivariate_odds_ratio
+  univariate_odds_ratio: univariate_odds_ratio
+  multivariate_odds_ratio_low_bmi: multivariate_odds_ratio_low_bmi
+  multivariate_odds_ratio_high_bmi: multivariate_odds_ratio_high_bmi
+  multivariate_odds_ratio_low_bmi_significant: multivariate_odds_ratio_low_bmi_significant
+  multivariate_odds_ratio_high_bmi_significant: multivariate_odds_ratio_high_bmi_significant
+  univariate_odds_ratio_low_bmi: univariate_odds_ratio_low_bmi
+  univariate_odds_ratio_high_bmi: univariate_odds_ratio_high_bmi
+  univariate_feature_importance: univariate_feature_importance
+  binary_odds_ratio_low_bmi: binary_odds_ratio_low_bmi
+  binary_odds_ratio_high_bmi: binary_odds_ratio_high_bmi
+  binary_odds_ratio_low_bmi_significant: binary_odds_ratio_low_bmi_significant
+  binary_odds_ratio_high_bmi_significant: binary_odds_ratio_high_bmi_significant
+  binary_odds_ratio_abnormal_bmi: binary_odds_ratio_abnormal_bmi
+  univariate_odds_ratio_abnormal_bmi: univariate_odds_ratio_abnormal_bmi
+  multivariate_odds_ratio_abnormal_bmi: multivariate_odds_ratio_abnormal_bmi
+  sensitivity_analysis: sensitivity_analysis
+  adjusted_logit: adjusted_logit
+  # posthoc
+  posthoc: posthoc
+  chisq_posthoc: chisq_posthoc
+
+  # followup_outcomes
+  followup_outcomes: followup_outcomes
+  followup_outcomes_2year: followup_outcomes_2year
+  followup_outcomes_3year: followup_outcomes_3year
+  significant_vars: significant_vars
+  basic_plots: basic_plots
+  detailed_plots: detailed_plots
+  summary_plots: summary_plots
+  visualization_summary: visualization_summary
+  all_significant_variables: all_significant_variables

@@ -1,0 +1,108 @@
+# ML 모델 설정
+random_state: 42
+cv_folds: 5
+scoring_metric: "roc_auc"  # roc_auc, accuracy, f1
+
+# SMOTE 설정
+smote:
+  enabled: false
+  random_state: 42
+
+# 데이터 전처리 설정
+preprocessing:
+  scale_vars:
+    - "iarvppd"
+    - "niarvrpd" 
+    - "aoxyuppd"
+    - "niarvhfnc"
+    - "invfpod"
+    - "stday"
+  scale_factor: 7
+  weight_vars:
+    - "bwei"
+  weight_factor: 1000
+
+# 모델 설정
+models:
+  LogisticRegression:
+    enabled: true
+    max_iter: 2000  # 1000에서 2000으로 증가
+    params:
+      C: [0.001, 0.01, 0.1, 1, 10, 100]
+      penalty: ["l2"]  # L2만 사용 (더 안정적)
+      solver: ["lbfgs"]  # 더 안정적인 solver 사용
+      
+  RandomForest:
+    enabled: true
+    params:
+      n_estimators: [100, 200, 300]
+      max_depth: [null, 10, 20, 30]
+      min_samples_split: [2, 5, 10]
+      min_samples_leaf: [1, 2, 4]
+      
+  SVM:
+    enabled: false  # 시간이 오래 걸리므로 기본값은 false
+    probability: true
+    params:
+      C: [0.1, 1, 10, 100]
+      kernel: ["linear", "rbf"]
+      gamma: ["scale", "auto", 0.001, 0.01, 0.1, 1]
+
+  XGBoost:
+    enabled: true
+    params:
+      n_estimators: [100, 200, 300]
+      max_depth: [3, 5, 7]
+      learning_rate: [0.01, 0.1, 0.2]
+      subsample: [0.8, 0.9, 1.0]
+
+  LightGBM:
+    enabled: true
+    params:
+      n_estimators: [100, 200, 300]
+      max_depth: [3, 5, 7, -1]
+      learning_rate: [0.01, 0.1, 0.2]
+      num_leaves: [31, 50, 100]
+      subsample: [0.8, 0.9, 1.0]
+
+  CatBoost:
+    enabled: true
+    params:
+      iterations: [100, 200, 300]
+      depth: [3, 5, 7]
+      learning_rate: [0.01, 0.1, 0.2]
+      l2_leaf_reg: [1, 3, 5, 7]
+
+  GradientBoosting:
+    enabled: true
+    params:
+      n_estimators: [100, 200, 300]
+      max_depth: [3, 5, 7]
+      learning_rate: [0.01, 0.1, 0.2]
+      subsample: [0.8, 0.9, 1.0]
+
+# 하이퍼파라미터 최적화 설정
+optimization:
+  method: "grid"  # grid, random, bayes
+  n_jobs: -1
+  verbose: 0
+  
+  # RandomSearchCV 설정 (method가 "random"일 때)
+  n_iter: 50
+  
+  # BayesSearchCV 설정 (method가 "bayes"일 때)  
+  n_calls: 50
+
+# 모델 저장 설정
+model_save:
+  directory: "models"
+  prefix: "best_model" 
+
+# 결과 저장 설정
+results_save:
+  enabled: true
+  directory: "results/ml"
+  save_predictions: true
+  save_confusion_matrices: true
+  save_detailed_reports: true
+  save_plots: true  # 그림 저장 옵션 추가 
