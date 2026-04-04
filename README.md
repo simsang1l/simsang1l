@@ -1,9 +1,6 @@
 ## Hi, I'm Sang-Il Sim 👋
 
-2TB DW 구축, 2,500만 건 대용량 데이터 처리를 위한 ETL 파이프라인을 설계·운영하고, 다기관 데이터 표준화 ETL 구조를 설계하여 4개 기관에 데이터마트를 구축했습니다.
-
-- 다기관 ETL 구조를 설계하여 **4개 기관**에 구축
-- K-CURE 경진대회 **최우수상** · AI 증강 인터페이스 **특허 등록**
+On-premise 서버 구축·운영, 2TB DW 구축과 2,500만 건 대용량 데이터 처리, 다기관 ETL 구조 설계 경험이 있는 데이터 엔지니어입니다.
 
 <p>
   ✉️ <a href="mailto:simsang1db@gmail.com">simsang1db@gmail.com</a>
